@@ -1,7 +1,7 @@
 # myshop-commons-dubbo
 
 #### 介绍
-通用的DUBBO依赖
+考试系统
 
 #### 软件架构
 软件架构说明
