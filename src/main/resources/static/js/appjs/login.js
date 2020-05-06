@@ -27,6 +27,7 @@ function login() {
 			if (r.code == 0) {
 				parent.location.href = '/index';
 			} else {
+				document.getElementById("codeImage").src = "/authCode/getAuthCode?"+ Math.random();
 				layer.msg(r.msg);
 			}
 		}
