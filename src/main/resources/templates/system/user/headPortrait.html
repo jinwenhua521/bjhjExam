@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>快速开发框架</title>
+<meta name="keywords" content="快速开发框架">
+<meta name="description" content="快速开发框架">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+<link href="/css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+<div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h2>密码修改</h2>
+                    <div class="alert alert-info">
+                     <div class="row">
+                      <div class="col-sm-4">
+                        <form class="gg-form" role="form" id="modifyPwd">
+                            <input type="hidden" name ="userId" id="userId" th:value="${SysUser.userId}"/>
+                            <div class="gg-formGroup">
+                                <div class="gg-formTitle">
+                                    <em class="gg-star">*</em>
+                                    <span>新密码:</span>
+                                </div>
+                                <div class="gg-formDetail gg-dashed">
+                                    <input type="password" class="form-control gg-border0" id="password" name="password" placeholder="请输入新密码" />
+                                </div>
+                            </div>
+                            <div class="gg-formGroup">
+                                <div class="gg-formTitle">
+                                    <em class="gg-star">*</em>
+                                    <span>确认密码:</span>
+                                </div>
+                                <div class="gg-formDetail gg-dashed">
+                                    <input type="password" class="form-control gg-border0" id="confirm_password" name="confirm_password" placeholder="请确认密码" />
+                                </div>
+                            </div>
+                        </form>
+                        <div class="gg-btnGroup">
+                            <button type="button" class="btn btn-sm btn-primary" id="pwd_save">保存设置</button>
+                        </div>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h2>个人信息完善</h2>
+                    <form id="form" action="form_wizard.html#" class="wizard-big">
+                        <h1>账户信息</h1>
+                        <fieldset>
+                            <h2>账户信息</h2>
+                             <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>姓名 *</label>
+                                        <input id="name" name="name" type="text" class="form-control required"  th:value="${SysUser.name}" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email *</label>
+                                        <input id="email" name="email" type="text" class="form-control required email"  th:value="${SysUser.email}" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>电话 *</label>
+                                        <input id="mobile" name="mobile" type="text" class="form-control required" th:value="${SysUser.mobile}" >
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <h1>个人资料</h1>
+                        <fieldset>
+                            <h2>个人资料信息</h2>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                   
+                                </div>
+                            </div>
+                        </fieldset>
+                        <h1>头像设置</h1>
+                        <fieldset>
+                            <div class="text-center" style="margin-top: 120px">
+                                <h2>你是火星人 :-)</h2>
+                            </div>
+                        </fieldset>
+                        <h1>完成</h1>
+                        <fieldset>
+                            <h2>条款</h2>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                            <label for="acceptTerms">我同意注册条款</label>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/content.js?v=1.0.0"></script>
+<script src="js/plugins/staps/jquery.steps.min.js"></script>
+<script src="/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/js/plugins/validate/messages_zh.min.js"></script>
+<script src="/js/plugins/layer/layer.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#form").steps({
+            bodyTag: "fieldset", onStepChanging: function (event, currentIndex, newIndex) {
+                if (currentIndex > newIndex) {
+                    return true
+                }
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false
+                }
+                var form = $(this);
+                if (currentIndex < newIndex) {
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error")
+                }
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid()
+            }, onStepChanged: function (event, currentIndex, priorIndex) {
+                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                    $(this).steps("next")
+                }
+                if (currentIndex === 2 && priorIndex === 3) {
+                    $(this).steps("previous")
+                }
+            }, onFinishing: function (event, currentIndex) {
+                var form = $(this);
+                form.validate().settings.ignore = ":disabled";
+                return form.valid()
+            }, onFinished: function (event, currentIndex) {
+                var form = $(this);
+                form.submit()
+            }
+        }).validate({
+            errorPlacement: function (error, element) {
+                element.before(error)
+            }, rules: {confirm: {equalTo: "#password"}}
+        })
+        validateRule();
+    });
+    
+    function validateRule() {
+    	var icon = "<i class='fa fa-times-circle'></i> ";
+    	$("#modifyPwd").validate({
+    		rules : {
+    			password : {
+    				required : true,
+    				minlength : 6
+    			},
+    			confirm_password : {
+    				required : true,
+    				minlength : 6,
+    				equalTo : "#password"
+    			}
+    		},
+    		messages : {
+    			password : {
+    				required : icon + "请输入您的密码",
+    				minlength : icon + "密码必须6个字符以上"
+    			},
+    			confirm_password : {
+    				required : icon + "请再次输入密码",
+    				minlength : icon + "密码必须6个字符以上",
+    				equalTo : icon + "两次输入的密码不一致"
+    			}
+    		}
+    	})
+    }
+    
+    $("#pwd_save").click(function () {
+    	var password=$("#password").val();
+    	var confirm_password=$("#confirm_password").val();
+    	if(password!="" && confirm_password!=""){
+    		$.ajax({
+                cache : true,
+                type : "POST",
+                url :"/system/user/modifyPwd",
+                data : $('#modifyPwd').serialize(),
+                async : false,
+                error : function(request) {
+                	layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if (data.code == 0) {
+                    	layer.alert("更新密码成功");
+                    } else {
+                    	layer.alert(data.msg)
+                    }
+                }
+            })
+    	}else{
+    		layer.alert("不能为空");	
+    	}
+    })
+</script>
+
+</body>
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<link href="/css/plugins/zTree/metroStyle/metroStyle.css" rel="stylesheet"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content">
+  <div class="row">
+      <!-- 部门机构树 -->
+      <div class="col-sm-3">
+          <div class="ibox float-e-margins">
+                <div class="ibox-content">
+               <button  type="button" shiro:hasPermission="system:dept:add"  class="btn  btn-primary btn-sm" onclick="add()" >
+				 <i class="fa fa-plus " aria-hidden="true"></i>添加部门
+				</button>
+                 <div class="hr-line-dashed" style="margin:10px 0;"></div>
+                <ul id="deptTree" class="ztree"></ul>
+                </div>
+          </div>
+      </div>
+      
+      <!-- 列表 -->
+       <div class="col-sm-9  fadeInRight">
+           <div class="ibox-content">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar">
+						<div class="columns pull-left">
+							<button shiro:hasPermission="system:dept:batchRemove"
+								type="button" class="btn  btn-danger" onclick="batchRemove()">
+								<i class="fa fa-trash" aria-hidden="true"></i>删除
+							</button>
+						</div>
+						<div class="columns pull-right col-md-4">
+						    <div class="input-group">
+									<input type="text" id="searchName" placeholder="输入名称" class="form-control" >
+									 <span class="input-group-btn">
+										<button type="button" class="btn btn btn-primary" onclick="reLoad()">
+										  <i class="fa fa-search"></i> 搜索
+										</button>
+									</span>
+								</div>
+						</div>
+					</div>
+					<table id="exampleTable" data-mobile-responsive="true">
+					</table>
+				</div>
+			</div>
+       </div>
+  </div>
+</div>
+<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+	<div>
+		<script type="text/javascript">
+			var s_edit_h = 'hidden';
+			var s_remove_h = 'hidden';
+		</script>
+	</div>
+	<div shiro:hasPermission="system:dept:edit">
+		<script type="text/javascript">
+			s_edit_h = '';
+		</script>
+	</div>
+	<div shiro:hasPermission="system:dept:remove">
+		<script type="text/javascript">
+			var s_remove_h = '';
+		</script>
+	</div>
+
+<div th:include="include :: footer"></div>
+</body>
+<script src="/js/plugins/zTree/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="/js/appjs/system/dept/dept_list.js"></script>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文件管理</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="/css/animate.css" rel="stylesheet">
+<link href="/css/layui.css" rel="stylesheet">
+<link href="/css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="file-manager">
+                        <h5>显示：</h5>
+                        <div class="hr-line-dashed"></div>
+                        <a href="javascript:void(0)" onclick="changeType(0)" class="file-control active" >所有</a> 
+							<a href="javascript:void(0)"  onclick="changeType(1)" class="file-control" >图片</a>
+							<a href="javascript:void(0)" onclick="changeType(2)" class="file-control">文档</a>
+							<a href="javascript:void(0)" onclick="changeType(3)" class="file-control">视频</a>
+							<a href="javascript:void(0)" onclick="changeType(4)" class="file-control">音乐</a> 
+							<a href="javascript:void(0)" onclick="changeType(5)" class="file-control">其他</a>
+                        <form id="uploadForm" class="form-horizontal m-t hidden">
+								<input type="file" id="file" class="form-control" name="file"
+									style="height: 100px;" />
+							</form>
+							<button class="btn btn-primary btn-block hidden" onclick="doUpload()">上传文件</button>
+							<div class="hr-line-dashed"></div>
+
+							<button type="button" class="btn btn-primary btn-block" id="up_btn" >
+								<i class="fa fa-cloud"></i>上传文件
+							</button>
+						<div class="hr-line-dashed"></div>
+                        <h5>文件夹：</h5>
+                        <ul class="folder-list" style="padding: 0">
+                        <li th:each="SysFile,SysFileStat : ${Catalog}">
+                                <a href="javascript:void(0)" th:if=" ${SysFile.filename} eq '图片'" onclick="changeType(1)" >
+                                <i class="fa fa-folder"></i> 
+                                <span th:text="${SysFile.filename}"></span>
+                                </a>
+                                 <a href="javascript:void(0)" th:if=" ${SysFile.filename} eq '文件'" onclick="changeType(2)" >
+                                <i class="fa fa-folder"></i> 
+                                <span th:text="${SysFile.filename}"></span>
+                                </a>
+                                 <a href="javascript:void(0)" th:if=" ${SysFile.filename} eq '音乐'" onclick="changeType(4)" >
+                                <i class="fa fa-folder"></i> 
+                                <span th:text="${SysFile.filename}"></span>
+                                </a>
+                                 <a href="javascript:void(0)" th:if=" ${SysFile.filename} eq '视频'" onclick="changeType(3)" >
+                                <i class="fa fa-folder"></i> 
+                                <span th:text="${SysFile.filename}"></span>
+                                </a>
+                                 <a href="javascript:void(0)" th:if=" ${SysFile.filename} eq '书籍'" onclick="changeType(5)" >
+                                <i class="fa fa-folder"></i> 
+                                <span th:text="${SysFile.filename}"></span>
+                                </a>
+                        </li>
+                        </ul>
+                        <h5 class="tag-title">标签：</h5>
+                        <ul class="tag-list" style="padding: 0">
+                            <li th:each="SysFile,SysFileStat : ${Label}">
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm" ><span th:text="${SysFile.fileLabel}" onclick="changeType_label(this)"></span></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                   <div id="incomeNum"></div>
+                </div>
+            </div>
+            <div>
+					<ul id="page"></ul>
+			</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/bootstrap-paginator.min.js"></script>
+<script src="/js/content.js?v=1.0.0"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/plugins/dropzone/dropzone.js"></script>
+<script src="/js/plugins/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/appjs/system/file/file.js"></script>
+</html>

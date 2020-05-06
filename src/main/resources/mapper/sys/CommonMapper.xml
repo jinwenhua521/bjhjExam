@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nebulae.system.mapper.CommonMapper">
+
+	<resultMap id="BaseResultMap" type="com.nebulae.system.entity.Common">
+		<id column="currentDateTime" property="dateTime" jdbcType="VARCHAR" />
+		<id column="currentDate" property="date" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getCurrentDateTime" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<if test="flag != null and flag!=''">
+			to_char(sysdate,'yyyy-mm-dd') as currentDate
+		</if>
+		<if test="flag == null or flag==''">
+			to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') as currentDateTime
+		</if>
+		from dual
+	</select>
+
+	<select id="executeSqlQuery" parameterType="java.lang.String"
+		resultType="map">
+		<if test="_parameter !=null">
+			${_parameter}
+		</if>
+	</select>
+
+</mapper>

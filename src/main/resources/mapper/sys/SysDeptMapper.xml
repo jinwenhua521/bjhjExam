@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nebulae.system.mapper.SysDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.nebulae.system.entity.SysDept" >
+    <id column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DEPT_FID" property="deptFid" jdbcType="VARCHAR" />
+    <result column="DEPT_FCODE" property="deptFcode" jdbcType="VARCHAR" />
+    <result column="DEPT_FNAME" property="deptFname" jdbcType="VARCHAR" />
+    <result column="SEQENC" property="seqenc" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DEPT_ID, DEPT_NAME,DEPT_CODE,DEPT_FCODE, DEPT_FID, DEPT_FNAME, SEQENC, PARENT_ID, CREATE_ID, CREATE_DATE, 
+    PARENT_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nebulae.utils.ExampleUtils" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_DEPT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_DEPT
+    where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_DEPT
+    where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nebulae.utils.ExampleUtils" >
+    delete from SYS_DEPT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nebulae.system.entity.SysDept" >
+    insert into SYS_DEPT (DEPT_ID,DEPT_CODE, DEPT_NAME, DEPT_FID,DEPT_FCODE, 
+      DEPT_FNAME, SEQENC, PARENT_ID, 
+      CREATE_ID, CREATE_DATE, PARENT_NAME
+      )
+    values (#{deptId,jdbcType=VARCHAR},  #{deptCode,jdbcType=VARCHAR},#{deptName,jdbcType=VARCHAR}, #{deptFid,jdbcType=VARCHAR},#{deptFcode,jdbcType=VARCHAR}, 
+      #{deptFname,jdbcType=VARCHAR}, #{seqenc,jdbcType=DECIMAL}, #{parentId,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{parentName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nebulae.system.entity.SysDept" >
+    insert into SYS_DEPT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="deptCode != null" >
+        DEPT_CODE,
+      </if>
+      <if test="deptName != null" >
+        DEPT_NAME,
+      </if>
+      <if test="deptFid != null" >
+        DEPT_FID,
+      </if>
+      <if test="deptFcode != null" >
+        DEPT_FCODE,
+      </if>
+      <if test="deptFname != null" >
+        DEPT_FNAME,
+      </if>
+      <if test="seqenc != null" >
+        SEQENC,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="parentName != null" >
+        PARENT_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null" >
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFid != null" >
+        #{deptFid,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFcode != null" >
+        #{deptFcode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFname != null" >
+        #{deptFname,jdbcType=VARCHAR},
+      </if>
+      <if test="seqenc != null" >
+        #{seqenc,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nebulae.utils.ExampleUtils" resultType="java.lang.Integer" >
+    select count(*) from SYS_DEPT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_DEPT
+    <set >
+      <if test="record.deptId != null" >
+        DEPT_ID = #{record.deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null" >
+        DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptName != null" >
+        DEPT_NAME = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptFid != null" >
+        DEPT_FID = #{record.deptFid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptFcode!= null" >
+        DEPT_FCODE = #{record.deptFcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptFname != null" >
+        DEPT_FNAME = #{record.deptFname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqenc != null" >
+        SEQENC = #{record.seqenc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createId != null" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.parentName != null" >
+        PARENT_NAME = #{record.parentName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_DEPT
+    set DEPT_ID = #{record.deptId,jdbcType=VARCHAR},
+      DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      DEPT_NAME = #{record.deptName,jdbcType=VARCHAR},
+      DEPT_FID = #{record.deptFid,jdbcType=VARCHAR},
+      DEPT_FCODE = #{record.deptFcode,jdbcType=VARCHAR},
+      DEPT_FNAME = #{record.deptFname,jdbcType=VARCHAR},
+      SEQENC = #{record.seqenc,jdbcType=DECIMAL},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      PARENT_NAME = #{record.parentName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nebulae.system.entity.SysDept" >
+    update SYS_DEPT
+    <set >
+     <if test="deptCode != null" >
+        DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        DEPT_NAME = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFid != null" >
+        DEPT_FID = #{deptFid,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFcode != null" >
+        DEPT_FCODE = #{deptFcode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptFname != null" >
+        DEPT_FNAME = #{deptFname,jdbcType=VARCHAR},
+      </if>
+      <if test="seqenc != null" >
+        SEQENC = #{seqenc,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentName != null" >
+        PARENT_NAME = #{parentName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nebulae.system.entity.SysDept" >
+    update SYS_DEPT
+    set DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+     DEPT_NAME = #{deptName,jdbcType=VARCHAR},
+      DEPT_FID = #{deptFid,jdbcType=VARCHAR},
+      DEPT_FCODE = #{deptFcode,jdbcType=VARCHAR},
+      DEPT_FNAME = #{deptFname,jdbcType=VARCHAR},
+      SEQENC = #{seqenc,jdbcType=DECIMAL},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      PARENT_NAME = #{parentName,jdbcType=VARCHAR}
+    where DEPT_ID = #{deptId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByNewFIdSelective" parameterType="com.nebulae.system.entity.SysDept" >
+  update SYS_DEPT set DEPT_FNAME=REPLACE(DEPT_FNAME,#{oldDeptName,jdbcType=VARCHAR},#{deptName,jdbcType=VARCHAR}),
+                      DEPT_FCODE=REPLACE(DEPT_FCODE,#{oldDeptCode,jdbcType=VARCHAR},#{deptCode,jdbcType=VARCHAR}) 
+  <![CDATA[where DEPT_FID like '%' ||  #{deptId,jdbcType=VARCHAR} || '%']]>
+  </update>
+</mapper>

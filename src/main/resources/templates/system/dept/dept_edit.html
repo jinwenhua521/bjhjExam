@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">上级部门：</label>
+								<div class="col-sm-8">
+									<input id="deptId" name="deptId"  th:value="${SysDept.deptId}" class="form-control hidden" type="text">
+									<input id="oldDeptName" name="oldDeptName"  th:value="${SysDept.oldDeptName}"  class="form-control hidden" type="text">
+									<input id="oldDeptCode" name="oldDeptCode"  th:value="${SysDept.oldDeptCode}"  class="form-control hidden" type="text">
+								</div>
+								<div class="col-sm-8">
+									<input id="parentName" name="parentName" th:value="${SysDept.parentName}" class="form-control" type="text" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">部门代码：</label>
+								<div class="col-sm-8">
+									<input id="deptCode" name="deptCode" class="form-control" autocomplete="off" th:value="${SysDept.deptCode}"  type="text" placeholder="输入代码" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">部门名称：</label>
+								<div class="col-sm-8">
+									<input id="deptName" name="deptName" class="form-control" autocomplete="off" th:value="${SysDept.deptName}"  type="text" placeholder="输入名称" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">排&nbsp;&nbsp;&nbsp;&nbsp;序：</label>
+								<div class="col-sm-8">
+									<input id="seqenc" name="seqenc" class="form-control"  autocomplete="off" th:value="${SysDept.seqenc}"  type="text" placeholder="只能输入数字" >
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/dept/dept_edit.js">
+	</script>
+</body>
+</html>

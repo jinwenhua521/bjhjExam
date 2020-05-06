@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>建考直通车</title>
+<meta name="keywords" content="建考直通车">
+<meta name="description" content="建考直通车">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="/css/animate.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<link href="/css/login.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+<script>
+	if (window.top !== window.self) {
+		window.top.location = window.location;
+	}
+</script>
+
+</head>
+
+<body class="signin">
+	<div class="signinpanel">
+		<div class="row">
+			<div class="col-sm-7" style="margin-top: 17%">
+				<div class="signin-info">
+					<div class="m-b"></div>
+					<h1>
+						<strong>欢迎使用建考直通车</strong>
+					</h1>
+				</div>
+			</div>
+			<div class="col-sm-5">
+
+				<form id="signupForm" class="form-horizontal">
+					<h3 class="text-center">用户登录</h3>
+					<!-- 					<p class="m-t-md text-center">欢迎登录云南省云南省出租房信息管理系统</p> -->
+					<input type="text" name="username" id="username" class="form-control uname"   autocomplete="off" />
+					<input type="password" name="password" id="password"  class="form-control pword m-b"   autocomplete="off" />
+					<p>
+						<img type="image" src="/authCode/getAuthCode" id="codeImage" class="col-lg-6"
+							 onclick="this.src=this.src+'?'" title="图片看不清？点击重新得到验证码" style="cursor: pointer; width: 120px; height: 34px; padding: 0px;" />
+						<input class="form-control" id="codeImage" name="vcode" placeholder="请输入验证码"  autocomplete="off"
+							   type="text" style="width: 180px;" />
+					</p>
+					<input type="checkbox" name="rememberMe"  id="rememberMe"  checked="checked"  style="height: 17px;width:17px;margin-left:-1px;margin-top: 10px;"/>
+					<span style="font-size:13px;color:#125395;margin-right:10px;">登录并记住用户</span>
+					<button class="btn btn-login btn-block">登录</button>
+					<!-- 					按钮模块 -->
+					<div class="outside-login">
+						<div class="outside-login-cot">
+							<a
+									class="outside-login-btn wxoa actived oschina J-btnSwitchLoginType"
+									target="_Blank" > <em><i
+									class="fa fa-comments"></i></em>
+							</a> <a
+								class="outside-login-btn wxoa actived my J-btnSwitchLoginType"
+								target="_Blank" > <em><i
+								class="fa fa-qq"></i></em>
+						</a> <a
+								class="outside-login-btn wxoa actived git J-btnSwitchLoginType"
+								target="_Blank" > <em><i
+								class="fa fa-github"></i></em>
+						</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="signup-footer">
+			<div class="pull-center">Copyright &copy;  2020 All Rights Reserved. 作者：北京华建互联科技发展有限公司</div>
+		</div>
+	</div>
+	<!-- 全局js -->
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="/js/content.js?v=1.0.0"></script>
+	<script src="/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="/js/plugins/validate/messages_zh.min.js"></script>
+	<script src="/js/plugins/layer/layer.min.js"></script>
+	<script src="/js/appjs/login.js"></script>
+</body>
+</html>

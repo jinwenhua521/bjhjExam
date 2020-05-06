@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nebulae.system.mapper.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.nebulae.system.entity.SysMenu" >
+    <id column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="LABEL" property="label" jdbcType="VARCHAR" />
+    <result column="URL" property="surl" jdbcType="VARCHAR" />
+    <result column="PERMS" property="perms" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="SEQENC" property="seqenc" jdbcType="DECIMAL" />
+    <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MENU_ID, PARENT_ID, LABEL, URL, PERMS, TYPE, ICON, SEQENC, CREATE_ID, CREATE_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nebulae.utils.ExampleUtils" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_MENU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_MENU
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_MENU
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nebulae.utils.ExampleUtils" >
+    delete from SYS_MENU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <delete id="batchDelete">
+		delete from SYS_MENU where MENU_ID in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+ </delete>
+  <insert id="insert" parameterType="com.nebulae.system.entity.SysMenu" >
+    insert into SYS_MENU (MENU_ID, PARENT_ID, LABEL, 
+      URL, PERMS, TYPE, ICON, 
+      SEQENC, CREATE_ID, CREATE_DATE
+      )
+    values (#{menuId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, 
+      #{surl,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}, #{icon,jdbcType=VARCHAR}, 
+      #{seqenc,jdbcType=DECIMAL}, #{createId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nebulae.system.entity.SysMenu" >
+    insert into SYS_MENU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="label != null" >
+        LABEL,
+      </if>
+      <if test="surl != null" >
+        URL,
+      </if>
+      <if test="perms != null" >
+        PERMS,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+      <if test="seqenc != null" >
+        SEQENC,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="surl != null" >
+        #{surl,jdbcType=VARCHAR},
+      </if>
+      <if test="perms != null" >
+        #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="seqenc != null" >
+        #{seqenc,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nebulae.utils.ExampleUtils" resultType="java.lang.Integer" >
+    select count(*) from SYS_MENU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_MENU
+    <set >
+      <if test="record.menuId != null" >
+        MENU_ID = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.label != null" >
+        LABEL = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surl != null" >
+        URL = #{record.surl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perms != null" >
+        PERMS = #{record.perms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=DECIMAL},
+      </if>
+      <if test="record.icon != null" >
+        ICON = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqenc != null" >
+        SEQENC = #{record.seqenc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createId != null" >
+        CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_MENU
+    set MENU_ID = #{record.menuId,jdbcType=VARCHAR},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      LABEL = #{record.label,jdbcType=VARCHAR},
+      URL = #{record.surl,jdbcType=VARCHAR},
+      PERMS = #{record.perms,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=DECIMAL},
+      ICON = #{record.icon,jdbcType=VARCHAR},
+      SEQENC = #{record.seqenc,jdbcType=DECIMAL},
+      CREATE_ID = #{record.createId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nebulae.system.entity.SysMenu" >
+    update SYS_MENU
+    <set >
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        LABEL = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="surl != null" >
+        URL = #{surl,jdbcType=VARCHAR},
+      </if>
+      <if test="perms != null" >
+        PERMS = #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="seqenc != null" >
+        SEQENC = #{seqenc,jdbcType=DECIMAL},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nebulae.system.entity.SysMenu" >
+    update SYS_MENU
+    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      LABEL = #{label,jdbcType=VARCHAR},
+      URL = #{surl,jdbcType=VARCHAR},
+      PERMS = #{perms,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=DECIMAL},
+      ICON = #{icon,jdbcType=VARCHAR},
+      SEQENC = #{seqenc,jdbcType=DECIMAL},
+      CREATE_ID = #{createId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="listUserPerms" resultType="string" parameterType="java.lang.String">
+		select distinct m.perms
+		from sys_menu m left join
+		sys_role_menu rm on m.menu_id = rm.menu_id
+		left join sys_user_role ur
+		on rm.role_id = ur.role_id where ur.user_id
+		= #{userId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="listMenuByUserId" resultType="com.nebulae.system.entity.SysMenu" parameterType="java.lang.String">
+		    select distinct 
+    m.menu_id , parent_id, label, url as surl,
+    perms,type,icon,seqenc,m.create_id, m.create_date
+		from sys_menu m
+		left
+		join sys_role_menu rm on m.menu_id = rm.menu_id left join
+		sys_user_role ur   
+		on rm.role_id =ur.role_id   left join sys_role ro
+     on ro.role_id=ur.role_id   where ur.user_id =#{userId,jdbcType=VARCHAR}
+        and ro.status=1
+		and m.type in(0,1)
+		order by
+		m.seqenc
+	</select>
+  
+</mapper>

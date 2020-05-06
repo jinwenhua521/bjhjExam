@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar">
+						<div class="columns pull-left">
+							<button type="button" class="btn  btn-danger"
+								onclick="batchRemove()">
+								<i class="fa fa-trash" aria-hidden="true"></i>删除
+							</button>
+						</div>
+						<div class="pull-right search col-md-2">
+								<div class="input-group">
+									<input type="text" id="searchOperation" autocomplete="off" placeholder="操作" class="form-control" >
+									 <span class="input-group-btn">
+										<button type="button" class="btn btn btn-primary" onclick="reLoad()">
+										  <i class="fa fa-search"></i> 搜索
+										</button>
+									</span>
+								</div>
+						</div>
+						<div class="pull-right search col-md-2">
+							<input id="searchIp" type="text"autocomplete="off"  class="form-control"
+								placeholder="ip">
+						</div>
+						<div class="pull-right search col-md-2 nopadding">
+							<input id="searchUsername" type="text" autocomplete="off" class="form-control"
+								placeholder="用户">
+						</div>
+					</div>
+					<table id="exampleTable" data-mobile-responsive="true">
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/log/log.js"></script>
+</body>
+</html>

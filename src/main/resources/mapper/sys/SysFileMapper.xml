@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nebulae.system.mapper.SysFileMapper" >
+  <resultMap id="BaseResultMap" type="com.nebulae.system.entity.SysFile" >
+    <id column="SID" property="sid" jdbcType="VARCHAR" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="SUFFIX" property="suffix" jdbcType="VARCHAR" />
+    <result column="FILETYPE" property="filetype" jdbcType="VARCHAR" />
+    <result column="FILEURL" property="fileurl" jdbcType="VARCHAR" />
+    <result column="UP_DATE" property="upDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEID" property="createid" jdbcType="VARCHAR" />
+    <result column="FILE_ALLNAME" property="fileAllname" jdbcType="VARCHAR" />
+    <result column="FILE_LABEL" property="fileLabel" jdbcType="VARCHAR" />
+    <result column="DOC_TYPE" property="docType" jdbcType="DECIMAL" />
+    <result column="FILE_SIZE" property="fileSize" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SID, FILENAME, SUFFIX, FILETYPE, FILEURL, UP_DATE, CREATEID, FILE_ALLNAME, FILE_LABEL, 
+    DOC_TYPE,FILE_SIZE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nebulae.utils.ExampleUtils" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_FILE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectLabel" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  select distinct FILE_LABEL from SYS_FILE where CREATEID = #{userId,jdbcType=VARCHAR} and DOC_TYPE=1 and FILE_LABEL is not null
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_FILE
+    where SID = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_FILE
+    where SID = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nebulae.utils.ExampleUtils" >
+    delete from SYS_FILE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nebulae.system.entity.SysFile" >
+    insert into SYS_FILE (SID, FILENAME, SUFFIX, 
+      FILETYPE, FILEURL, UP_DATE, 
+      CREATEID, FILE_ALLNAME, FILE_LABEL, 
+      DOC_TYPE,FILE_SIZE)
+    values (#{sid,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{suffix,jdbcType=VARCHAR}, 
+      #{filetype,jdbcType=VARCHAR}, #{fileurl,jdbcType=VARCHAR}, #{upDate,jdbcType=TIMESTAMP}, 
+      #{createid,jdbcType=VARCHAR}, #{fileAllname,jdbcType=VARCHAR}, #{fileLabel,jdbcType=VARCHAR}, 
+      #{docType,jdbcType=DECIMAL},#{fileSize,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nebulae.system.entity.SysFile" >
+    insert into SYS_FILE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="filename != null" >
+        FILENAME,
+      </if>
+      <if test="suffix != null" >
+        SUFFIX,
+      </if>
+      <if test="filetype != null" >
+        FILETYPE,
+      </if>
+      <if test="fileurl != null" >
+        FILEURL,
+      </if>
+      <if test="upDate != null" >
+        UP_DATE,
+      </if>
+      <if test="createid != null" >
+        CREATEID,
+      </if>
+      <if test="fileAllname != null" >
+        FILE_ALLNAME,
+      </if>
+      <if test="fileLabel != null" >
+        FILE_LABEL,
+      </if>
+      <if test="docType != null" >
+        DOC_TYPE,
+      </if>
+       <if test="docType != null" >
+        FILE_SIZE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null" >
+        #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null" >
+        #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="upDate != null" >
+        #{upDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createid != null" >
+        #{createid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileAllname != null" >
+        #{fileAllname,jdbcType=VARCHAR},
+      </if>
+      <if test="fileLabel != null" >
+        #{fileLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="docType != null" >
+        #{docType,jdbcType=DECIMAL},
+      </if>
+       <if test="fileSize != null" >
+        #{fileSize,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nebulae.utils.ExampleUtils" resultType="java.lang.Integer" >
+    select count(*) from SYS_FILE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_FILE
+    <set >
+      <if test="record.sid != null" >
+        SID = #{record.sid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null" >
+        FILENAME = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suffix != null" >
+        SUFFIX = #{record.suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filetype != null" >
+        FILETYPE = #{record.filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileurl != null" >
+        FILEURL = #{record.fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upDate != null" >
+        UP_DATE = #{record.upDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createid != null" >
+        CREATEID = #{record.createid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileAllname != null" >
+        FILE_ALLNAME = #{record.fileAllname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileLabel != null" >
+        FILE_LABEL = #{record.fileLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docType != null" >
+        DOC_TYPE = #{record.docType,jdbcType=DECIMAL},
+      </if>
+       <if test="record.fileSize != null" >
+        FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_FILE
+    set SID = #{record.sid,jdbcType=VARCHAR},
+      FILENAME = #{record.filename,jdbcType=VARCHAR},
+      SUFFIX = #{record.suffix,jdbcType=VARCHAR},
+      FILETYPE = #{record.filetype,jdbcType=VARCHAR},
+      FILEURL = #{record.fileurl,jdbcType=VARCHAR},
+      UP_DATE = #{record.upDate,jdbcType=TIMESTAMP},
+      CREATEID = #{record.createid,jdbcType=VARCHAR},
+      FILE_ALLNAME = #{record.fileAllname,jdbcType=VARCHAR},
+      FILE_LABEL = #{record.fileLabel,jdbcType=VARCHAR},
+      DOC_TYPE = #{record.docType,jdbcType=DECIMAL},
+      FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nebulae.system.entity.SysFile" >
+    update SYS_FILE
+    <set >
+      <if test="filename != null" >
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null" >
+        SUFFIX = #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        FILETYPE = #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null" >
+        FILEURL = #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="upDate != null" >
+        UP_DATE = #{upDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createid != null" >
+        CREATEID = #{createid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileAllname != null" >
+        FILE_ALLNAME = #{fileAllname,jdbcType=VARCHAR},
+      </if>
+      <if test="fileLabel != null" >
+        FILE_LABEL = #{fileLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="docType != null" >
+        DOC_TYPE = #{docType,jdbcType=DECIMAL},
+      </if>
+      <if test="fileSize != null" >
+        FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nebulae.system.entity.SysFile" >
+    update SYS_FILE
+    set FILENAME = #{filename,jdbcType=VARCHAR},
+      SUFFIX = #{suffix,jdbcType=VARCHAR},
+      FILETYPE = #{filetype,jdbcType=VARCHAR},
+      FILEURL = #{fileurl,jdbcType=VARCHAR},
+      UP_DATE = #{upDate,jdbcType=TIMESTAMP},
+      CREATEID = #{createid,jdbcType=VARCHAR},
+      FILE_ALLNAME = #{fileAllname,jdbcType=VARCHAR},
+      FILE_LABEL = #{fileLabel,jdbcType=VARCHAR},
+      DOC_TYPE = #{docType,jdbcType=DECIMAL},
+      FILE_SIZE = #{docType,jdbcType=DECIMAL}
+    where SID = #{fileSize,jdbcType=VARCHAR}
+  </update>
+</mapper>

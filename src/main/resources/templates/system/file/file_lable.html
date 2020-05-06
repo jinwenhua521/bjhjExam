@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="layui-form form-horizontal m-t" id="signupForm">
+						  <div class="form-group">
+						    <ul class="tag-list" style="padding: 0">
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span onclick="setLabel(this)">爱人</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span onclick="setLabel(this)">工作</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span onclick="setLabel(this)">家庭</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span  onclick="setLabel(this)">孩子</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span  onclick="setLabel(this)">假期</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span  onclick="setLabel(this)">音乐</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span onclick="setLabel(this)">照片</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span  onclick="setLabel(this)">电影</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span  onclick="setLabel(this)">科幻</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm"><span  onclick="setLabel(this)">武侠</span></a>
+                            </li>
+                        </ul>
+						  </div>
+							<div class="form-group">
+								<input id="sid" name="sid" type="hidden"   th:value="${SysFile.sid}">
+								 <textarea name="fileLabel"  id="fileLabel" placeholder="请输入标签" autocomplete="off" class="form-control" th:value="${SysFile.fileLabel}" th:text="${SysFile.fileLabel}"></textarea>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary" onclick="update_label()">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/file/file.js"></script>
+</body>
+</html>
