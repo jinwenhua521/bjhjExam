@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import com.nebulae.license.LicenseCheckInterceptor;
 import com.nebulae.utils.AESUtil;
 
 
