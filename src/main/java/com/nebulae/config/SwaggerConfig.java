@@ -31,9 +31,9 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("YuFei后台管理框架，RestFul API")
+                .title("华建考试管理系统，RestFul API")
                 //创建人
-                .contact(new Contact("雨飞", "375718726@qq.com",""))
+                .contact(new Contact("华建考试管理系统", "734701641@qq.com",""))
                 //版本号
                 .version("1.0")
                 //描述

@@ -14,23 +14,12 @@ spring:
     multipart:
       max-file-size: 30Mb # 上传文件大小
       max-request-size: 30Mb
-#    listener:
-#      simple:
-#        concurrency: 50 # 并发消费者的初始化值
-#        max-concurrency: 50000 # 并发消费者的最大值
-#        prefetch: 10 # 每个消费者每次监听时可拉取处理的消息数量
-# mybatis配置
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/**/*Mapper.xml
   type-aliases-package: com.nebulae.**.entity
-# 分页插件
-# pagehelper:
-#    helperDialect: mysql
-#    reasonable: true
-#    supportMethodsArguments: true
-#    params: count=countSql
+
 # 日志
 logging:
   level:
@@ -41,6 +30,7 @@ logging:
 #    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
 #    file: '%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n'
 # 上传路径
+
 nebulae:
-  uploadPath: D:/hotel2018Server/var/uploaded_files/
+  uploadPath: D:/bjhj2020Server/var/uploaded_files/
 
